@@ -1,72 +1,59 @@
 # -*- coding:utf8 -*-
 from itertools import combinations
-from collections import deque
 
-def bfs(graph, start):
-    queue = deque()
-    queue.append(start)
-    dx = [-1,1,0,0]
-    dy = [0,0,1,1]
+def virus(x,y):
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < n and 0 <= ny < m:
+            if tmp[nx][ny] == 0:
+                tmp[nx][ny] = 2
+                virus(nx, ny)
+    return
 
-    while queue:
-        x, y = queue.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            # print(nx, ny)
-            if nx < 0 or nx > n-1 or ny< 0 or ny > m-1:
-                continue
+def count_safe_zone():
+    cnt = 0
+    for i in range(n):
+        for j in range(m):
+            if tmp[i][j] == 0:
+                cnt +=1
+    return cnt
 
-            if graph[nx][ny] == 0 :
-                queue.append((nx, ny))
-                graph[nx][ny] = 2
-
-    return graph
-
-def main(wall_candidates):
-    tmp_graph = graph
-    max_safe_zone = -1
-    #경우의 수대로 벽을 세우고
+def main():
+    global tmp
+    max_cnt = -1
     for walls in combinations(wall_candidates, 3):
-        #벽세우기
-        for wall in walls:
-            tmp_graph[wall[0]][wall[1]] = 1
-
-        #바이러스 감염시키기
-        for virus in viruses:
-            tmp_graph = bfs(tmp_graph, virus)
-            # if set(walls) == {(1,6), (2,5), (2,6)}:
-            #     for i in range(n):
-            #         print(tmp_graph[i])
-            #         print()
-
-
-        #안전구역 세기
-        tmp_safe_zone=0
+        #원래 벽
         for i in range(n):
             for j in range(m):
-                if tmp_graph[i][j] == 0:
-                    tmp_safe_zone +=1
+                    tmp[i][j] = graph[i][j]
+        #벽 세개 새우기
+        for x,y in walls:
+            tmp[x][y] = 1
 
-        max_safe_zone = max(tmp_safe_zone, max_safe_zone)
-        tmp_graph = graph
+        for x,y in virus_loc:
+            virus(x,y)
+        max_cnt = max(max_cnt, count_safe_zone())
 
-    return max_safe_zone
+    return max_cnt
+
 
 if __name__ == "__main__":
-    n,m = list(map(int, input().split(" ")))
+    n,m = map(int, input().split(" "))
     graph = []
+    tmp = []
+    virus_loc = []
     wall_candidates = []
-    #바이러스가 있는 구간 마다 bfs실시
-    viruses = []
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, 1, -1]
     for i in range(n):
-        val = list(map(int, input().split(" ")))
-        graph.append(val)
+        graph.append(list(map(int, input().split(" "))))
+        tmp.append([0] * m)
         for j in range(m):
-            if val[j] == 0:
+            if graph[i][j]  == 0:
                 wall_candidates.append((i,j))
-            if val[j] == 2:
-                viruses.append((i,j))
+            if graph[i][j] == 2:
+                virus_loc.append((i,j))
 
-    res = main(wall_candidates)
+    res = main()
     print(res)
