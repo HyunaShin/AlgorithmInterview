@@ -6,11 +6,15 @@ def main():
     s.reverse()
 
     dp = [1] * n
+    #현위치
     for i in range(n):
+        #현위치 이전의 값
         for j in range(i):
+            #현위치의 값이 이전 값 보다가 크면
             if s[i] > s[j]:
+                #dp테이블에 이어지는 값 표기
                 dp[i] = max(dp[i], dp[j] +1)
-
+            # 만약에 안이어지면, 무조건 얘보다 작은 값에서 +1이 되게 되있어
     print(n - max(dp))
 
     return
