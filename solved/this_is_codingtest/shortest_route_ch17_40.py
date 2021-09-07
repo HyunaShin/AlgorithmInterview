@@ -31,3 +31,17 @@ while q:
 
 max_dist = max(list(filter(lambda x : x != INF,distance)))
 print( distance.index(max_dist), " ", max_dist, " ",distance.count(max_dist))
+
+#---solution 중
+max_node = 0
+max_distance = 0
+result = []
+for i in range(1, n+1):
+    #최댓값 찾고
+    if max_distance < distance[i]:
+        max_node = i
+        max_distance = distance[i]
+        result = [max_node ]
+    #이후에 등장하는 값은 append
+    elif max_distance == distance[i]:
+        result.append(i)
