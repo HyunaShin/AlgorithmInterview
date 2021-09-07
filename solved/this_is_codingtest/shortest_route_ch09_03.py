@@ -13,9 +13,11 @@ for _ in range(m):
     #array[노드] = (드는 비용, 이동할 노드)
     array[x].append((z,y))
 
-
+#다익스트라
 q = []
 heapq.heappush(q, (0,c))
+# !!!!distance초기화 조심
+distance[c] = 0
 while q:
     dist_now, node_now = heapq.heappop(q)
     # 원래 최단경로보다, 큐에서 가져온 최단 경로가 더 길면 무시한다.
@@ -41,4 +43,4 @@ for dist in distance:
         total_city +=1
         total_cost = max(dist, total_cost)
 
-print(total_city, " ", total_cost)
+print(total_city-1, " ", total_cost)
