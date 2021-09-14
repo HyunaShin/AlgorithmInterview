@@ -3,6 +3,7 @@
 #특정 원소가 속한 집합을 찾기
 def find_parent(parent, x):
     #루트 노드가 아니라면, 루트 노드를 찾을 떄 까지 재귀적으로 호출
+    # https://rok93.tistory.com/entry/9-%EA%B7%B8%EB%9E%98%ED%94%84-%EC%9D%B4%EB%A1%A0-%EC%84%9C%EB%A1%9C%EC%86%8C-%EC%A7%91%ED%95%A9
     # print(parent, x)
     if parent[x] != x:
         return find_parent(parent, parent[x])
