@@ -23,7 +23,8 @@ def main():
         cnt = 0
         while True:
             nx, ny = x + dx, y + dy
-            #다음이 벽이거나, 구멍이 아닐 떄 까지(왜 x,y !=0이지???nx, ny가 아니고)
+            #칸을 직선으로 한칸씩 옮기는 조건에 대한 구현이다.
+            #앞에 벽이 있거나, 지금 구멍이면 더 못가지?
             if graph[nx][ny] != "#" and graph[x][y] != "O":
                 x = nx
                 y = ny
