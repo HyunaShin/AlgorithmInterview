@@ -3,11 +3,11 @@ def main():
     n,m = map(int, input().split())
     graph = [list(map(int, input().split())) for _ in range(n)]
     cases = {
-        0: [ ("+","+",0,0), ("+","+",0,1), ("+","+",0,2), ("+","+",0,3)],
-        1: [ ("+","+",0,0), ("+","+",0,1), ("+","+",1,0), ("+","+",1,1)],
-        2: [("+", "+", 0, 0), ("+", "+", 1, 0), ("+", "+", 2, 0), ("+", "+", 2, 1)],
-        3: [("+", "+", 0, 0), ("+", "+", 1, 0), ("+", "+", 1, 1), ("+", "+", 2, 1)],
-        4: [("+", "+", 0, 0), ("+", "+", 0, 1), ("+", "+", 0, 2), ("+", "+", 1, 1)]
+        0: [ ["+","+",0,0], ["+","+",0,1], ["+","+",0,2], ["+","+",0,3]],
+        1: [ ["+","+",0,0], ["+","+",0,1], ["+","+",1,0], ["+","+",1,1]],
+        2: [["+", "+", 0, 0], ["+", "+", 1, 0], ["+", "+", 2, 0], ["+", "+", 2, 1]],
+        3: [["+", "+", 0, 0], ["+", "+", 1, 0], ["+", "+", 1, 1], ["+", "+", 2, 1]],
+        4: [["+", "+", 0, 0], ["+", "+", 0, 1], ["+", "+", 0, 2], ["+", "+", 1, 1]]
     }
 
     def turn(tetro_list, angle):
@@ -16,15 +16,35 @@ def main():
             return tetro_list
 
         tetro = copy.deepcopy(tetro_list)
-        #90도는 더하는 축 반대
-        if angle == 1:
-            tetro[3],tetro[2] = tetro[2], tetro[3]
-        #180도는 부호만 반대
-        elif angle == 2:
-            tetro[0], tetro[1] = tetro[1], tetro[0]
-        #270도는 축과 부호 모두 반대
-        else:
-            tetro[0], tetro[1],tetro[2], tetro[3] = tetro[1], tetro[0],tetro[3], tetro[2]
+        for i in range(4):
+            #90도는 더하는 축 반대
+            if angle == 1:
+                tetro[i][3],tetro[i][2] = tetro[i][2], tetro[i][3]
+            #180도는 부호만 반대
+            elif angle == 2:
+                # print(tetro[i])
+                if tetro[i][0] == "+":
+                    tetro[i][0] = "-"
+                else:
+                    tetro[i][0] = "+"
+
+                if tetro[i][1] == "+":
+                    tetro[i][1] = "-"
+                else:
+                    tetro[i][1] = "+"
+
+            #270도는 축과 부호 모두 반대
+            elif angle ==3:
+                tetro[i][2], tetro[i][3] = tetro[i][3], tetro[i][2]
+                if tetro[i][0] == "+":
+                    tetro[i][0] = "-"
+                else:
+                    tetro[i][0] = "+"
+
+                if tetro[i][1] == "+":
+                    tetro[i][1] = "-"
+                else:
+                    tetro[i][1] = "+"
         return tetro
 
     max_val = 0
@@ -34,15 +54,20 @@ def main():
         for y in range(m): #O(52 * 4 * 5 * 500)
             #모든 도형에 대해
             for i in range(5): #O(52 * 4 * 5)
+                if i == 1:
+                    continue
                 #한번씩 다 돌려보면서
                 for j in range(4):
                     tmp_sum = 0
                     space_list = turn(cases[i], j)
+                #     print(j, space_list)
+                # print("=====")
                     #해당 위치한칸한칸씩 놓아서, 값의합을 본다
                     for space in space_list: #O((4 * 15)+16 = 36)
                         cnt = 0
                         nx, ny = None, None
                         if space[0] == "+":
+                            # print(x, space)
                             nx = x + space[2]
                             cnt +=1
                         elif space[0] == "-":
@@ -52,12 +77,14 @@ def main():
                         if space[1] == "+":
                             ny = y+space[3]
                             cnt += 1
+
                         elif space[1] == "-": #O(2 + 4)
                             ny = y-space[3] #O(4)
                             cnt += 1
 
                         if cnt ==2 and (0 <= nx < n) and (0 <= ny < m):
                             tmp_sum += graph[nx][ny]
+
                 max_val = max(tmp_sum, max_val)
 
     print(max_val)
