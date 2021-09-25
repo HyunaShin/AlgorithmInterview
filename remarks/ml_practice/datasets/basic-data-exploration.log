@@ -1,0 +1,11 @@
+[{"stream_name":"stderr","time":11.755315965,"data":"/opt/conda/lib/python3.7/site-packages/papermill/iorw.py:50: FutureWarning: pyarrow.HadoopFileSystem is deprecated as of 2.0.0, please use pyarrow.fs.HadoopFileSystem instead.\n"}
+,{"stream_name":"stderr","time":11.755364029,"data":"  from pyarrow import HadoopFileSystem\n"}
+,{"stream_name":"stderr","time":15.569041247,"data":"/opt/conda/lib/python3.7/site-packages/traitlets/traitlets.py:2561: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":15.569091,"data":"  FutureWarning,\n"}
+,{"stream_name":"stderr","time":15.569103497,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":15.625986907,"data":"[NbConvertApp] Writing 13856 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":17.68766243,"data":"/opt/conda/lib/python3.7/site-packages/traitlets/traitlets.py:2561: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":17.68770026,"data":"  FutureWarning,\n"}
+,{"stream_name":"stderr","time":17.687706363,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":18.217117764,"data":"[NbConvertApp] Writing 281160 bytes to __results__.html\n"}
+]
