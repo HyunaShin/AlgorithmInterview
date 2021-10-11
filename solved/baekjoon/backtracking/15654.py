@@ -3,6 +3,7 @@ numbers = [int(i) for i in input().split()]
 numbers.sort()
 
 def dfs(result):
+    #O(N!)
     if len(result) == m:
         print(" ".join(result))
         return
